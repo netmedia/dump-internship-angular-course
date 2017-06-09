@@ -1,0 +1,12 @@
+# deps
+node_modules/
+
+# editor
+.vscode
+.idea
+
+# OS generated stuff
+.DS_Store
+.DS_Store?
+
+npm-debug.log
