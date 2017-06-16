@@ -1,6 +1,5 @@
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-
-module.exports = new LocalStrategy(authenticate);
 
 function authenticate(username, password, done) {
   if (username !== "john") {
@@ -13,3 +12,8 @@ function authenticate(username, password, done) {
     email: "johndoe@example.org"
   });
 }
+
+module.exports = app => {
+  passport.use(new LocalStrategy(authenticate));
+  app.use(passport.initialize());
+};
