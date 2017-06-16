@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  extends: 'eslint',
+  extends: "eslint",
   parserOptions: {
     ecmaVersion: 2016,
-    sourceType: 'module',
+    sourceType: "module",
   },
   env: {
     es6: true,
@@ -18,6 +18,6 @@ module.exports = {
     "no-use-before-define": 0,
     "consistent-return": 0,
     "no-unused-vars": ["error", {"args": "none"}],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "double"]
   }
 };

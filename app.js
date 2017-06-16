@@ -1,22 +1,22 @@
-const express = require('express');
-const helmet = require('helmet');
-const bodyParser = require('body-parser');
-const HTTPStatus = require('http-status');
-const passport = require('passport');
+const express = require("express");
+const helmet = require("helmet");
+const bodyParser = require("body-parser");
+const HTTPStatus = require("http-status");
+const passport = require("passport");
 
 const port = process.env.PORT || 3000;
-const host = process.env.IP || '0.0.0.0';
+const host = process.env.IP || "0.0.0.0";
 
 const app = express();
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const auth = require('./auth');
+const auth = require("./auth");
 app.use(passport.initialize());
 passport.use(auth);
 
-app.post('/login', passport.authenticate('local', { session: false }),
+app.post("/login", passport.authenticate("local", { session: false }),
   (req, resp) => resp.status(HTTPStatus.OK).json({
     success: true,
     data: req.user
