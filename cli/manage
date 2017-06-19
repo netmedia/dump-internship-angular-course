@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+const config = require("../config");
+const initDb = require("../models");
+const program = require("commander");
+const Promise = require("bluebird");
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
+const prompt = require("prompt");
+
+initDb(config.db.mongodb);
+
+program
+  .command("createuser")
+  .usage("-n <name> -e <email> [-a]")
+  .description("Create a new company in the main database")
+  .option("-n,--name <name>", "User's full display name")
+  .option("-e,--email <email>", "Email used to log in")
+  .option("-a,--admin", "User is admin")
+  .action(createUser);
+
+program.parse(process.argv);
+
+const availableCommands = program.commands;
+const enteredCommand = program.args[0];
+
+if (!enteredCommand || availableCommands.indexOf(enteredCommand) == -1) {
+  console.error("Error: Invalid command!");
+  program.outputHelp();
+
+  process.exit(0);
+}
+
+function createUser() {
+  prompt.start();
+  const getAsync = Promise.promisify(prompt.get);
+  getAsync({ properties: { password: { hidden: true } } })
+    .then(data => {
+      const { password } = data;
+      const user = new User({
+        name: this.name, email: this.email, isAdmin: this.admin, password
+      });
+      return user.save();
+    })
+    .then(data => {
+      console.log(data);
+      process.exit(1);
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(0);
+    });
+}
+
