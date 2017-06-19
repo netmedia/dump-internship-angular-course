@@ -6,8 +6,7 @@ module.exports = app => {
   const apiRouter = routerFactory();
 
   app.use("/api", apiRouter);
-  const modulePaths = getDirectoryModulePaths(__dirname);
-  modulePaths.forEach(m => require(m)(apiRouter, routerFactory()));
+  getDirectoryModulePaths(__dirname).forEach(p => require(p)(apiRouter, routerFactory()));
 
   app.use((err, req, res, next) => {
     console.error(err.stack);

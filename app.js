@@ -11,6 +11,9 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// database
+require("./models")(config.db.mongodb);
+
 // auth
 require("./auth")(app);
 
