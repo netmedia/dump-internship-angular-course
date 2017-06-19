@@ -3,6 +3,8 @@ const express = require("express");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 
+global.Promise = require("bluebird");
+
 const port = config.application.port || 3000;
 const host = config.application.ip || "0.0.0.0";
 

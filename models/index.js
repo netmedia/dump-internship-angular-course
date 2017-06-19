@@ -1,6 +1,5 @@
 const getDirectoryModulePaths = require("../common/getDirectoryModulePaths");
 const mongoose = require("mongoose");
-const Promise = require("bluebird");
 
 // set mongoose Promise library
 mongoose.Promise = Promise;

@@ -3,10 +3,12 @@
 const config = require("../config");
 const initDb = require("../models");
 const program = require("commander");
-const Promise = require("bluebird");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const prompt = require("prompt");
+
+// needs to be set explicitly because the script is executed directly, not through app.js
+const Promise = require("bluebird");
 
 initDb(config.db.mongodb);
 
