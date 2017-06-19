@@ -21,6 +21,14 @@ module.exports = {
     "quotes": ["error", "double"],
     "eqeqeq": 0,
     "no-invalid-this": 0,
-    "no-process-exit": 0
+    "no-process-exit": 0,
+    "curly": 0,
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "never"
+    }],
+    "prefer-arrow-callback": 0,
+    "no-shadow": 0
   }
 };
