@@ -10,8 +10,8 @@ module.exports = {
     mongodb: {
       host: process.env.MONGODB_HOST,
       port: process.env.MONGODB_PORT,
-      database: process.env.MONGODB_NAME,
-      user: process.env.MONGODB_USERNAME,
+      name: process.env.MONGODB_NAME,
+      username: process.env.MONGODB_USERNAME,
       password: process.env.MONGODB_PASSWORD
     }
   }

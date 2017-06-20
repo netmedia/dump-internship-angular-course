@@ -17,7 +17,18 @@ module.exports = {
     "require-jsdoc": 0,
     "no-use-before-define": 0,
     "consistent-return": 0,
-    "no-unused-vars": ["error", {"args": "none"}],
-    "quotes": ["error", "double"]
+    "no-unused-vars": ["error", { "args": "none" }],
+    "quotes": ["error", "double"],
+    "eqeqeq": 0,
+    "no-invalid-this": 0,
+    "no-process-exit": 0,
+    "curly": 0,
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "never"
+    }],
+    "prefer-arrow-callback": 0,
+    "no-shadow": 0
   }
 };
