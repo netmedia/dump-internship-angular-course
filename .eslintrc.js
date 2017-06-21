@@ -29,6 +29,7 @@ module.exports = {
       "asyncArrow": "never"
     }],
     "prefer-arrow-callback": 0,
-    "no-shadow": 0
+    "no-shadow": 0,
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }]
   }
 };

@@ -36,7 +36,7 @@ if (!enteredCommand || availableCommands.indexOf(enteredCommand) == -1) {
 function createUser() {
   prompt.start();
   const getAsync = Promise.promisify(prompt.get);
-  getAsync({ properties: { password: { hidden: true } } })
+  getAsync({ properties: { password: { hidden: true, replace: "*" } } })
     .then(data => {
       const { password } = data;
       const user = new User({

@@ -22,7 +22,7 @@ schema.pre("save", function (next) {
     });
 });
 
-schema.methods.comparePassword = function (password) {
+schema.methods.verifyPassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 

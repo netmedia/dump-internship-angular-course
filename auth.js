@@ -1,19 +1,55 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const passportJwt = require("passport-jwt");
+const JwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
+const User = require("mongoose").model("User");
 
-function authenticate(username, password, done) {
-  if (username !== "john") {
-    return done(new Error(`User ${username} not found!`));
+passport.use(new LocalStrategy({
+  usernameField: "email",
+  session: false
+}, (email, password, done) => {
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        done(null, false, "User not found!");
+        return;
+      }
+
+      isValidPassword(user, password, done);
+      return null;
+    })
+    .catch(err => done(err));
+
+  function isValidPassword(user, password, done) {
+    return user.verifyPassword(password)
+      .then(success => {
+        if (!success) {
+          done(null, false, "Invalid password!");
+          return;
+        }
+
+        done(null, user);
+      })
+      .catch(err => done(err));
   }
+}));
 
-  done(null, {
-    username: "john",
-    name: "John Doe",
-    email: "johndoe@example.org"
-  });
-}
+passport.use(new JwtStrategy({
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme(process.env.JWT_AUTH_SCHEME || "Bearer"),
+  secretOrKey: process.env.JWT_SECRET,
+  ignoreExpiration: false
+}, (payload, done) => {
+  User.findById(payload.id)
+    .then(user => {
+      if (!user) {
+        done(null, false, "User not found!");
+        return;
+      }
+      done(null, user);
+      return null;
+    })
+    .catch(err => done(err));
+}));
 
-module.exports = app => {
-  passport.use(new LocalStrategy(authenticate));
-  app.use(passport.initialize());
-};
+module.exports = app => app.use(passport.initialize());
