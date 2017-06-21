@@ -1,5 +1,6 @@
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 const { OK } = require("http-status");
 
 module.exports = (parent, router) => {
@@ -15,7 +16,7 @@ function login(req, res, next) {
 }
 
 function createToken({ id } = {}) {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_TTL || "1d"
+  return jwt.sign({ id }, config.jwt.secret, {
+    expiresIn: config.jwt.ttl || "1d"
   });
 }

@@ -14,5 +14,10 @@ module.exports = {
       username: process.env.MONGODB_USERNAME,
       password: process.env.MONGODB_PASSWORD
     }
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    authScheme: process.env.JWT_AUTH_SCHEME,
+    ttl: process.env.JWT_TTL
   }
 };

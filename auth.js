@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const passportJwt = require("passport-jwt");
 const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
+const config = require("./config");
 const User = require("mongoose").model("User");
 
 passport.use(new LocalStrategy({
@@ -36,8 +37,8 @@ passport.use(new LocalStrategy({
 }));
 
 passport.use(new JwtStrategy({
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme(process.env.JWT_AUTH_SCHEME || "Bearer"),
-  secretOrKey: process.env.JWT_SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme(config.jwt.authScheme || "Bearer"),
+  secretOrKey: config.jwt.secret,
   ignoreExpiration: false
 }, (payload, done) => {
   User.findById(payload.id)
