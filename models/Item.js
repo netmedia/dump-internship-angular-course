@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
-const schema = new mongoose.Schema({
+const rentalSchema = new Schema({
+  user: { type: ObjectId, required: true, ref: "User" },
+  date: Date
+});
+
+const schema = new Schema({
   name: { type: String, required: true },
   price: {
     amount: Number,
@@ -9,10 +15,7 @@ const schema = new mongoose.Schema({
   },
   boughtDate: Date,
   warrantyUntilDate: Date,
-  rentedTo: {
-    user: { type: ObjectId, required: true, ref: "User" },
-    date: Date
-  },
+  rentedTo: { type: rentalSchema },
   rentHistory: [{
     user: {
       id: { type: ObjectId, required: true }, // no ref, cached data
