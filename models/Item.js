@@ -1,3 +1,4 @@
+const pick = require("lodash/pick");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -24,6 +25,25 @@ const schema = new Schema({
     fromDate: { type: Date, required: true },
     toDate: { type: Date, required: true }
   }]
+});
+
+const filterProps = data => pick(data, [
+  "name",
+  "price",
+  "boughtDate",
+  "warrantyUntilDate"
+]);
+
+Object.assign(schema.statics, {
+  createInstance(data) {
+    const Item = mongoose.model("Item");
+    return Item.create(filterProps(data));
+  },
+
+  updateInstance(id, data) {
+    const Item = mongoose.model("Item");
+    return Item.findByIdAndUpdate(id, filterProps(data), { new: true });
+  }
 });
 
 mongoose.model("Item", schema);

@@ -59,13 +59,13 @@ function showItem(req, res, next) {
 }
 
 function createItem(req, res, next) {
-  Item.create(req.body)
+  Item.createInstance(req.body)
     .then(item => res.status(CREATED).json(item))
     .catch(err => next(err));
 }
 
 function updateItem(req, res, next) {
-  Item.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Item.updateInstance(req.params.id, req.body)
     .then(item => res.status(ACCEPTED).json(item))
     .catch(err => next(err));
 }
