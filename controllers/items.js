@@ -2,6 +2,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const Item = mongoose.model("Item");
 const { ObjectId } = mongoose.Types;
+const { ValidationError } = mongoose.Error;
 const {
   OK,
   CREATED,
@@ -11,7 +12,7 @@ const {
   UNPROCESSABLE_ENTITY
 } = require("http-status");
 
-const isValidationError = err => err.name === "ValidationError";
+const isValidationError = err => err instanceof ValidationError;
 
 function checkObjectId(req, res, next) {
   if (!ObjectId.isValid(req.params.id)) {
