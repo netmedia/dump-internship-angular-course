@@ -39,10 +39,10 @@ function createUser() {
   getAsync({ properties: { password: { hidden: true, replace: "*" } } })
     .then(data => {
       const { password } = data;
-      const user = new User({
+      const user = {
         name: this.name, email: this.email, isAdmin: this.admin, password
-      });
-      return user.save();
+      };
+      return User.createInstance(user);
     })
     .then(data => {
       console.log(data);

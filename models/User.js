@@ -22,8 +22,18 @@ schema.pre("save", function (next) {
     });
 });
 
-schema.methods.verifyPassword = function (password) {
-  return bcrypt.compare(password, this.password);
-};
+Object.assign(schema.methods, {
+  verifyPassword(password) {
+    return bcrypt.compare(password, this.password);
+  }
+});
+
+Object.assign(schema.statics, {
+  createInstance(data) {
+    const User = this;
+    const user = new User(data);
+    return user.save();
+  }
+});
 
 mongoose.model("User", schema);
