@@ -11,6 +11,7 @@ passport.use(new LocalStrategy({
   session: false
 }, (email, password, done) => {
   User.findOne({ email })
+    .select("+password")
     .then(user => {
       if (!user) {
         done(null, false, "User not found!");
