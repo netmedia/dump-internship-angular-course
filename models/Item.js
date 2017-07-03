@@ -36,13 +36,11 @@ const filterProps = data => pick(data, [
 
 Object.assign(schema.statics, {
   createInstance(data) {
-    const Item = mongoose.model("Item");
-    return Item.create(filterProps(data));
+    return this.create(filterProps(data));
   },
 
   updateInstance(id, data) {
-    const Item = mongoose.model("Item");
-    return Item.findByIdAndUpdate(id, filterProps(data), { new: true });
+    return this.findByIdAndUpdate(id, filterProps(data), { new: true });
   }
 });
 
