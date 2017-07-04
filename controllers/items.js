@@ -12,26 +12,6 @@ const {
   UNPROCESSABLE_ENTITY
 } = require("http-status");
 
-const isValidationError = err => err instanceof ValidationError;
-
-function checkObjectId(req, res, next) {
-  if (!ObjectId.isValid(req.params.id)) {
-    res.status(UNPROCESSABLE_ENTITY).json({ message: "Invalid object id provided" });
-    return;
-  }
-
-  next();
-}
-
-function errorHandler(err, req, res, next) {
-  if (!isValidationError(err)) {
-    next(err);
-    return;
-  }
-
-  res.status(NOT_ACCEPTABLE).json({ message: err.message });
-}
-
 module.exports = (parent, router) => {
   parent.use("/items", router);
 
@@ -74,4 +54,26 @@ function deleteItem(req, res, next) {
   Item.findByIdAndRemove(req.params.id)
     .then(item => res.status(NO_CONTENT).json())
     .catch(err => next(err));
+}
+
+function isValidationError(err) {
+  return err instanceof ValidationError;
+}
+
+function checkObjectId(req, res, next) {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(UNPROCESSABLE_ENTITY).json({ message: "Invalid object id provided" });
+    return;
+  }
+
+  next();
+}
+
+function errorHandler(err, req, res, next) {
+  if (!isValidationError(err)) {
+    next(err);
+    return;
+  }
+
+  res.status(NOT_ACCEPTABLE).json({ message: err.message });
 }
