@@ -9,7 +9,8 @@ const {
   ACCEPTED,
   NO_CONTENT,
   NOT_ACCEPTABLE,
-  UNPROCESSABLE_ENTITY
+  UNPROCESSABLE_ENTITY,
+  UNAUTHORIZED
 } = require("http-status");
 
 module.exports = (parent, router) => {
@@ -20,9 +21,9 @@ module.exports = (parent, router) => {
   router.use(isAuth);
   router.get("/", listItems);
   router.get("/:id", checkObjectId, showItem);
-  router.post("/", createItem);
-  router.put("/:id", checkObjectId, updateItem);
-  router.delete("/:id", checkObjectId, deleteItem);
+  router.post("/", isAdmin, createItem);
+  router.put("/:id", isAdmin, checkObjectId, updateItem);
+  router.delete("/:id", isAdmin, checkObjectId, deleteItem);
   router.use(errorHandler);
 };
 
@@ -76,4 +77,10 @@ function errorHandler(err, req, res, next) {
   }
 
   res.status(NOT_ACCEPTABLE).json({ message: err.message });
+}
+
+function isAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin)
+    return next();
+  res.sendStatus(UNAUTHORIZED);
 }
