@@ -1,10 +1,12 @@
 # Installation
 1. Install Node 8 and npm 5
-2. Create ``.env`` file from ``.env.template`` and set your configuration
-3. ``npm i``
+2. Install [Mongo DB](https://www.mongodb.com)
+3. Create ``.env`` file from ``.env.template`` and set your configuration
+4. ``npm i``
 
 # Starting the app
-``npm start`` to run regularly, ``npm run dev`` for live reload on code changes.
+1. Start MongoDB `C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe`. Run this from command line  window
+2. ``npm start`` to run regularly, ``npm run dev`` for live reload on code changes.
 
 # CLI
 When in project root, run ``./cli/scriptName scriptCommand --scriptFlag``  
