@@ -1,0 +1,13 @@
+<app-layout>
+  <div class="items-header">
+    <h1 class="items-title">{{ title }}</h1>
+    <button class="basic-btn items-createBtn" routerLink="/items">Back</button>
+    <button class="basic-btn items-deleteBtn" (click)="onDelete()" *ngIf="page === 'update'">Delete</button>
+  </div>
+
+  <div class="callout large">
+    <div class="itemCreate-contentWrapper">
+      <app-item-form [item]="item" [isLoading]="isLoading" (submited)="onSubmit($event)"></app-item-form>
+    </div>
+  </div>
+</app-layout>

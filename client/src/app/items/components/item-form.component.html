@@ -1,0 +1,41 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit($event, itemForm.value)">
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="medium-6 columns">
+          <label>Name
+            <input type="text" [formControl]="itemForm['controls']['name']">
+          </label>
+          <label *ngIf="submitted && itemForm['controls']['name'].hasError('required')" class="error-label">Name is required</label>
+        </div>
+        
+        <div class="medium-6 columns">
+          <label>Price
+            <input type="number" min="0" [formControl]="itemForm['controls']['price']['controls']['amount']">
+          </label>
+          <label *ngIf="submitted && itemForm['controls']['price']['controls']['amount'].hasError('required')" class="error-label">Price is required</label>
+        </div>
+
+        <div class="medium-6 columns">
+          <label>Curency
+            <select [formControl]="itemForm['controls']['price']['controls']['currency']">
+              <option value="HRK">HRK</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="medium-6 columns">
+          <label>Warranty expiration
+            <input type="date" min="{{ warranty }}" [formControl]="itemForm.controls['warrantyUntilDate']">
+          </label>
+        </div>
+
+        <div class="medium-6 columns">
+          <button type="submit" class="basic-btn items-submitBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <spinner [isRunning]="isLoading"></spinner>
+  </form>

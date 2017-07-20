@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+
+.itemCreate-contentWrapper {
+  margin-top: 20px;
+}
+
+.itemCreate-backBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.items-header {
+  display: inline-block;
+  width: 100%;
+}
+
+.items-title {
+  float: left;
+}
+
+.items-deleteBtn,
+.items-createBtn {
+  float: right;
+  margin-left: 10px;
+}
+
+.items-deleteBtn {
+  background-color: $color-red;
+}

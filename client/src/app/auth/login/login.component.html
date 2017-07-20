@@ -1,0 +1,18 @@
+<div class="form-container">
+  <h2 class="login-title">Login</h2>
+
+  <div class="error-wrapper">
+    <label *ngIf="submitted && email.hasError('required')" class="error-label">Email is required</label>
+    <label *ngIf="submitted && !email.hasError('required') && email.hasError('validateEmail')" class="error-label">Email is not in valid format</label>
+    <label *ngIf="submitted && password.hasError('required')" class="error-label">Password is required</label>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event, loginForm.value)">
+    <input type="text" [formControl]="email" placeholder="Email" class="txt">
+    <input type="password" [formControl]="password" placeholder="Password" class="txt">
+
+    <button type="submit" class="basic-btn login-submitBtn">Submit</button>
+  </form>
+
+  <spinner [isRunning]="isLoading"></spinner>
+</div>
